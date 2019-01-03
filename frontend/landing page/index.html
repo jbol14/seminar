@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css" type="text/css" media="screen" />
+    <script src="index.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <title>Hauptseite</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md fixed-top">
+            <a class="navbar-brand" href="#">Sharepoint</a>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+
+            </div>
+            <div class="mt-2 mt-md-0"><span id="sign-text">Not a member ?</span><button class="btn btn-outline-primary" id="btn-sign" onclick="toggleSign()">Sign Up!</button></div>
+        </nav>
+    </header>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-9">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non illo perferendis vero ipsam harum quisquam ab, incidunt ullam modi ut? Dolor dolores ea nulla ullam, aliquid saepe labore molestias iure, hic alias reprehenderit atque obcaecati et qui? Obcaecati voluptatum voluptatibus veniam enim distinctio culpa maxime corrupti, eaque quidem nam impedit necessitatibus dolores ad, soluta molestias? Possimus impedit velit expedita dolores, nihil, consectetur et fugit quidem esse reiciendis culpa? Tenetur maxime, distinctio, iusto porro soluta quisquam sunt excepturi aut ad obcaecati totam quibusdam asperiores omnis deleniti hic officia laudantium voluptate iure, ipsam fugiat est qui accusantium nesciunt? Voluptate assumenda dolores quisquam!</div>
+            <div class="col-3">
+                <div id="signin">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input name="signin-username" type="text" class="form-control" id="signin-username" />
+                    </div>
+                    <div class="form-group">
+                        <label for="signin-password">Password</label>
+                        <input name="signin-password" type="password" class="form-control" id="signin-password" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-outline-primary" onclick="signIn()">Sign In</button>
+                    </div>
+                </div>
+                <div id="signup">
+                    <div class="form-group">
+                        <label for="signup-username">Username</label>
+                        <input name="signup-username" type="text" class="form-control" id="signup-username" />
+                        <label for="signup-email">Email</label>
+                        <input name="signup-email" type="email" class="form-control" id="signup-email" onfocusout="validateEmail()"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password-1">Password</label>
+                        <input name="signup-password-1" type="password" class="form-control" id="signup-password-1" onkeyup="validatePassword()" />
+                        <label for="signup-password-2">Confirm Password</label>
+                        <input name="signup-password-2" type="password" class="form-control" id="signup-password-2" onkeyup="validatePassword()"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-outline-primary" onclick="signUp()">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">Und auf Wiedersehen</footer>
+</body>
+</html>

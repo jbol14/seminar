@@ -1,0 +1,27 @@
+.sidebar {
+    height:80%;
+    position: absolute;
+    width: 200px;
+    overflow: hidden;
+    left: -200px;
+    transition: 0.5s;
+    background-color: green;
+}
+
+#box-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.box {
+    border-style: solid;
+    width: "200px";
+    height: "200px";
+    
+    margin:"125px";
+    padding: "15px";
+    
+    justify-content: center;
+    align-content: center;
+}
