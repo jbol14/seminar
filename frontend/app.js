@@ -58,7 +58,7 @@ app.post('/user',function(req, res){
 
 //register
 app.post('/register',function(req,res){
-    console.log(req)
+    //console.log(req)
     MongoClient.connect("mongodb://127.0.0.1",function(err, db){
         const dbo = db.db('test');
         dbo.collection('users').insertOne({email: req.body.email,password: req.body.password1});
