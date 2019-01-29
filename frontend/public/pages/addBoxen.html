@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+    <title> CLZ Boxen mieten</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/addBoxen.css">
+	<div class="background">
+			<img src="/images/Clausthal-Zellerfeld.jpg" class="background">
+	</div>
+
+	<div class="headline"><h1> SharingPoint Clausthal, neue Box mieten</h1></div>
+
+	<div id="sidenav" Class="sidenav">
+		<img src="/images/avatar.png" class="accountimg">
+			<a href="/pages/index.html" class="logOut"> Ausloggen</a>
+	</div>
+</head>
+<body>
+	<div class="boxliste" id="boxlist">
+		<div class="headl"> <h2> Eine Box auswählen</h2></div>
+    <div class="main-container">
+    </div>
+    <script>
+        fetch('http://127.0.0.1:3000/freeBoxes')
+        .then(res => {return res.json()})
+        .then(myJson => {
+            console.log(myJson)
+
+            const container = document.querySelector(".main-container");
+
+            for(key in myJson){
+                //Aktuellen Key zwischenspeichern, frag mich nicht warum, aber funktioniert
+                const intermediateKey = key
+
+                //console.log(key)
+                
+                const boxContainer = document.createElement('div');
+                boxContainer.classList.add('box-container');
+
+                const standort = document.createElement('div');
+                standort.textContent = key;
+
+                const boxesleft = document.createElement('div');
+                boxesleft.textContent = `${myJson[key].length} Boxen verfügbar`;
+
+                const boxMieten = document.createElement('div');
+                const buttonCode = document.createElement('button');
+                buttonCode.classList.add('buttons');
+                buttonCode.textContent = "Box mieten";
+
+                //Funktioniert nicht
+                buttonCode.addEventListener('click', function(){
+                    const id = intermediateKey;
+
+                    console.log(id)
+                    //Send user id and location id to server
+                    //server adds user id to box id and returns success
+                });
+
+                boxMieten.appendChild(buttonCode);
+
+                boxContainer.appendChild(standort);
+                boxContainer.appendChild(boxesleft);
+                boxContainer.appendChild(boxMieten);
+
+                container.appendChild(boxContainer);
+            }
+        })
+    </script>
+</body>
+</html>

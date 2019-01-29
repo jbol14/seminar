@@ -1,0 +1,89 @@
+.background{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	filter: blur(5px);
+}
+.headline{
+	width: 100%;
+	height: 10%;
+	position: absolute;
+	text-align: center;
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 20px;
+
+}
+
+.boxliste{
+	width: 80%;
+	height: 70%;
+	top: 20%;
+	left: 10%;
+	background: rgba(105, 105, 105, 0.685);
+	position: absolute;
+	
+	
+}
+.accountimg{
+	height: 80px;
+	width: 80px;
+	position: relative;
+}
+.sidenav{
+	position: absolute;
+	right: -95px;
+	top: 0%;
+	transition: 0.3s;
+	padding: 15px;
+	width: 160px;
+	height: 80px;
+	text-decoration: none;
+	font-size: 20px;
+	color: white;
+}
+.sidenav:hover {
+	right: 0px;
+}
+.logOut{
+	position: relative;
+	right: -80px;
+	top: -55px;
+	overflow: hidden;
+}
+.headl{
+    width: 100%;
+    height: 10%;
+    top: -2%;
+    position: absolute;
+    text-align: center;
+}
+.main-container {
+    margin-right: 25px;
+    padding: 12px;
+    position: relative;
+    top: 6%;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.box-container{
+    margin: 15px;
+    padding: 20px;
+	border-style: solid;
+	font-size: 20px;
+	font-family: 'Times New Roman', Times, serif;
+	font-weight: bold;
+	text-align: center;
+}
+.buttons{
+	top: 10%;
+	padding: 10px;
+	outline: none;
+	background: #fb2525;
+	color: #fff;
+	font-size: 15px;
+	border-radius: 20px;
+	text-align: center;
+}
