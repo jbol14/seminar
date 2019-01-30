@@ -17,9 +17,9 @@
 	</div>
 
 	<!--Use Button instead of Form-->
-	<form action="addBoxen.html">
+	<form action="http://127.0.0.1:3000/rent">
 		<div class="newBox">
-				<input type="submit" value="Neue Box mieten">
+			<input type="submit" value="Neue Box mieten">
 		</div>
 	</form>
 
@@ -42,7 +42,7 @@
 	
 	<!-- Get Stuff from actual Server-->
 	<script>
-
+		console.log(document.cookie)
 		function getEmptyBoxes(){
 			//Make a fetch request to the server, change to get with authentication header set
 			fetch("http://127.0.0.1:3000/boxes",{
@@ -50,7 +50,7 @@
 				headers:{'Content-Type':'application/json'},
 				//pass the session_id in the request body
 				//this will no longer be necessary, session id is in cookies
-				body: JSON.stringify({'session_id':'5c1242265c6f1329e8727c60'})
+				//body: JSON.stringify({'session_id':'5c1242265c6f1329e8727c60'})
 			})
 			//Convert server response to JSON
 			.then(res => {
