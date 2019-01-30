@@ -2,6 +2,7 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 //Constants
 const PORT = 3000;
