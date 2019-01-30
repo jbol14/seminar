@@ -17,8 +17,10 @@ app.get('/', function(req, res){
     res.send('Hallo Welt');
 });
 
+app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 //Log in
 app.post('/user',function(req, res){
@@ -40,11 +42,19 @@ app.post('/user',function(req, res){
         .then((result=>{
             if(result){
                 //register session with server
+                // User-id is SessionId for now
+                let id = result._id.valueOf().toString();
+                //Debugging
+                console.log(`session id: ${id}`, typeof id);
+                //Insert into session collection
                 dbo.collection('sessions')
-                .insertOne({'session_id':result._id,'session_time':Date.now()});
+                .insertOne({'session_id':id,'session_time':Date.now()});
+
                 //return session_id to client, client has to send session_id with every request
-                res.writeHead(200,{'Content-Type':'text/plain'});
-                res.end(result._id.toString());
+                res.cookie('sessionId',id);
+                //Does not work yet
+                //res.writeHead(200,{'Content-Type':'text/plain'});
+                res.render('pages/boxenHome');
 
                 //TODO: Get Corresponding Boxes from Database and render view
                 
@@ -70,7 +80,8 @@ app.post('/register',function(req,res){
 
 //get users boxes, change to get when client supports get
 app.post('/boxes',function(req, res){
-    const sessionId = req.body.session_id.toString();
+    console.log(req.cookies.sessionId)
+    const sessionId = req.cookies.sessionId
     console.log("boxes were requested", "sessionId was " + sessionId, typeof sessionId);
     MongoClient.connect("mongodb://127.0.0.1",{useNewUrlParser: true}, function(err, db){
         if(err) throw err;
