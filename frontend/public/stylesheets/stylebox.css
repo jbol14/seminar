@@ -164,6 +164,9 @@ td{
 	height: 110px;
 }
 
+.active {
+	right: 0px;
+}
 
 
 .codeModal{
