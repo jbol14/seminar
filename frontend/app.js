@@ -173,9 +173,13 @@ app.get('/freeBoxes',function(req,res){
             // console.log(JSON.stringify(locations))
             });
         })
-    })
+    })    
+})
 
-    
+//rent-a-box
+app.put('/rentabox',function(req,res){
+    const location = req.body;
+    console.log(location)
 })
 // Start Server
 app.listen(PORT, function(){

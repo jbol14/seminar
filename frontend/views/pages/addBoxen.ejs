@@ -58,6 +58,13 @@
 
                     console.log(id)
                     //Send user id and location id to server
+                    fetch('http://127.0.0.1:3000/rentabox',{
+                        method:'PUT',
+                        body: JSON.stringify({location:id}),
+                        head: {
+                            'Content-Type':'application/json'
+                        }
+                    }).then(console.log(id));
                     //server adds user id to box id and returns success
                 });
                 //At button to button-container
