@@ -114,6 +114,7 @@ h1{
 	font-size: 100px;
 	font-family: 'Times New Roman', Times, serif;
 	font-weight: bolder;
+	text-shadow: 5px 5px 5px #000;
 }
 h2{
 	position: center;
@@ -121,6 +122,7 @@ h2{
 	color: rgb(219, 68, 68);
 	font-size: 30px;
 	font-family: 'Times New Roman', Times, serif;
+	text-shadow: 2px 2px 2px #000;
 }
 .codeModal{
 	display: none;
