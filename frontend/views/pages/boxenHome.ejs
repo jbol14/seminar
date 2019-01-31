@@ -12,8 +12,21 @@
 	<div class="headline"><h1> SharingPoint Clausthal, Meine Boxen</h1></div>
 
 	<div id="sidenav" Class="sidenav">
-		<img src="/images/avatar.png" class="accountimg" />
+		<div class="toggle-btn" onclick="toggleSidebar()">
+			<img src="/images/avatar.png" class= "avatar">
+		</div>
 		<a href="/pages/index.html" class="logOut"> Ausloggen</a>
+		<!--TODO: Tatsächlich ausloggen, also session zerstören etc-->
+		<button id="codeGen"> Code ändern</button>
+	</div>
+	
+	<div id="codeModal" class="codeModal">
+
+		<div class="codeModal-content">
+			<span class="close">&times;</span>
+			<p> Hier passieren später magische Dinge....</p>
+		</div>
+
 	</div>
 
 	<!--Use Button instead of Form-->
@@ -43,6 +56,12 @@
 	<!-- Get Stuff from actual Server-->
 	<script>
 		console.log(document.cookie)
+
+		//Sidebar einblenden / ausblenden
+		function toggleSidebar(){
+			document.getElementById("sidenav").classList.toggle('active');
+		}
+		
 		function getEmptyBoxes(){
 			//Make a fetch request to the server, change to get with authentication header set
 			fetch("http://127.0.0.1:3000/boxes",{
