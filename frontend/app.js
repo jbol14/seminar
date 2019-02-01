@@ -186,6 +186,7 @@ app.put('/rentabox',function(req,res){
         //Box mieten, dazu in der Datenbank genau ein Element finden, dass die Adresse hat
         MongoClient.connect(MONGOCONNECT,function(err,db){
             if(err) throw err;
+            
             //Connect to Database
             db.db(MONGODB)
             //Use Collection boxes
@@ -193,6 +194,12 @@ app.put('/rentabox',function(req,res){
             //update a single Element in that Collection that matches the Location
             //and does not have an oner yet by setting the owner to the current user
             .updateOne({"location.address" : location, owner:'null'}, {$set:{owner:user}});
+
+            //return success to user
+            // TODO: Prüfen ob ein Fehler aufgetreten ist
+            res.writeHead(200,{'Content-Type': 'application/json'})
+            res.end(JSON.stringify({success:true}));
+
         })
     })
 })

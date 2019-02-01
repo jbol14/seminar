@@ -80,7 +80,12 @@
                         headers: {
                             'Content-Type':'application/json'
                         }
-                    }).then(console.log(id));
+                    }).then(res=>{return res.json()})
+                    .then(myJson =>{
+                        console.log(myJson)
+                        if(myJson.success){alert('Box gemietet')}
+                        else{alert("Ein Fehler ist aufgetreten")}
+                    });
                     //server adds user id to box id and returns success
                 });
                 //At button to button-container
