@@ -82,10 +82,14 @@
                         }
                     }).then(res=>{return res.json()})
                     .then(myJson =>{
-                        console.log(myJson)
-                        if(myJson.success){alert('Box gemietet')}
-                        else{alert("Ein Fehler ist aufgetreten")}
-                    });
+                        //Todo; Mit HTTP Statuscodes arbeiten, Server gibt 200 wenn box erfolgreich gemietet wurde, 500 sonst
+                        if(myJson.success){
+                            alert('Box gemietet');
+                        } else{
+                            alert('Satz mit X');
+                        }
+
+                    }).catch(function(error){alert(error)})
                     //server adds user id to box id and returns success
                 });
                 //At button to button-container

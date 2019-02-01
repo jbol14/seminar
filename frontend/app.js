@@ -188,17 +188,44 @@ app.put('/rentabox',function(req,res){
             if(err) throw err;
             
             //Connect to Database
-            db.db(MONGODB)
+            const result = db.db(MONGODB)
             //Use Collection boxes
             .collection(MONGOBOXES)
             //update a single Element in that Collection that matches the Location
             //and does not have an oner yet by setting the owner to the current user
             .updateOne({"location.address" : location, owner:'null'}, {$set:{owner:user}});
 
+            //console.log(`Gefundene Boxen: ${result}`);
+
+            
+
             //return success to user
             // TODO: Prüfen ob ein Fehler aufgetreten ist
-            res.writeHead(200,{'Content-Type': 'application/json'})
-            res.end(JSON.stringify({success:true}));
+            /*
+            updateOne gibt ein Promise Objekt zurück, in dem in matchedCount vermerkt ist
+            wie viele Elemente betroffen sind und in modifiedCount wie viele geändert wurden
+            */
+            result.then(r => {
+                console.log(r.modifiedCount)
+                //Worst Case, es wurden mehrere Objekte gemietet obwohl nur eins gemietet werden sollte
+                if(r.modifiedCount > 1){
+                    //Diesen Fehler kann man vermutlich vor dem Nutzer verbergen
+                }
+                //Falls doch keine Box mehr verfügbar war, also matchedCount = 0 oder modifiedCount = 0
+                else if(r.modifiedCount == 0 || r.matchedCount == 0){
+                    //Fehler senden "Internal Server Error" passt am ehesten
+                    res.writeHead(500,{"Content-Type":"application/json"});
+                    res.end(JSON.stringify({success:false}));
+                }
+                //Alles in Ordnung
+                else{
+                    res.writeHead(200,{"Content-Type":"application/json"});
+                    res.end(JSON.stringify({success:true}))        
+                }
+            })
+
+            // res.writeHead(200,{'Content-Type': 'application/json'})
+            // res.end(JSON.stringify({success:true}));
 
         })
     })
