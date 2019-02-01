@@ -178,8 +178,23 @@ app.get('/freeBoxes',function(req,res){
 
 //rent-a-box
 app.put('/rentabox',function(req,res){
-    const location = req.body;
-    console.log(location)
+    const location = req.body.location;
+    console.log('Location: ' + location)
+    validateSessionCookie(req,res,function(){
+        const user = req.cookies.sessionId;
+        console.log(user);
+        //Box mieten, dazu in der Datenbank genau ein Element finden, dass die Adresse hat
+        MongoClient.connect(MONGOCONNECT,function(err,db){
+            if(err) throw err;
+            //Connect to Database
+            db.db(MONGODB)
+            //Use Collection boxes
+            .collection(MONGOBOXES)
+            //update a single Element in that Collection that matches the Location
+            //and does not have an oner yet by setting the owner to the current user
+            .updateOne({"location.address" : location, owner:'null'}, {$set:{owner:user}});
+        })
+    })
 })
 // Start Server
 app.listen(PORT, function(){

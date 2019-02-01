@@ -12,7 +12,7 @@
 
     <div id="sidenav" Class="sidenav">
 		<div class="toggle-btn" onclick="toggleSidebar()">
-			<img src="/public/images/avatar.png" class= "avatar">
+			<img src="images/avatar.png" class= "avatar">
 		</div>
 		<a href="/index.html" class="logOut"> Ausloggen</a>
 		<!--TODO: Tatsächlich ausloggen, also session zerstören etc-->
@@ -76,8 +76,8 @@
                     //Send user id and location id to server
                     fetch('http://127.0.0.1:3000/rentabox',{
                         method:'PUT',
-                        body: JSON.stringify({location:id}),
-                        head: {
+                        body: JSON.stringify({'location':id}),
+                        headers: {
                             'Content-Type':'application/json'
                         }
                     }).then(console.log(id));
