@@ -44,74 +44,81 @@
             .then(res => {return res.json()})
             .then(myJson => {
                 console.log(myJson)
+                //Prüfen, ob es überhaupt Boxen gibt oder ob das Array leer ist
+                if(Object.entries(myJson).length === 0){
+                    let header = document.getElementsByTagName('h2')[0];
+                    console.log(header.textContent);
+                    header.textContent = 'Leider sind keine Boxen verfügbar';
+                } 
+                else {
+                    // This is where boxes will be added
+                    const container = document.querySelector(".main-container");
 
-                
-                // This is where boxes will be added
-                const container = document.querySelector(".main-container");
+                    for(key in myJson){
+                        //Aktuellen Key zwischenspeichern, frag mich nicht warum, aber funktioniert
+                        const intermediateKey = key
+                        
+                        //Container for Box Information
+                        const boxContainer = document.createElement('div');
+                        boxContainer.classList.add('box-container');
 
-                for(key in myJson){
-                    //Aktuellen Key zwischenspeichern, frag mich nicht warum, aber funktioniert
-                    const intermediateKey = key
-                    
-                    //Container for Box Information
-                    const boxContainer = document.createElement('div');
-                    boxContainer.classList.add('box-container');
+                        //This will contain the address
+                        const standort = document.createElement('div');
+                        standort.textContent = key;
 
-                    //This will contain the address
-                    const standort = document.createElement('div');
-                    standort.textContent = key;
+                        //this will contain how many boxes are available at the location
+                        const boxesleft = document.createElement('div');
+                        boxesleft.textContent = `${myJson[key].length} Boxen verfügbar`;
 
-                    //this will contain how many boxes are available at the location
-                    const boxesleft = document.createElement('div');
-                    boxesleft.textContent = `${myJson[key].length} Boxen verfügbar`;
+                        //Container for button, not sure why this exists...
+                        const boxMieten = document.createElement('div');
+                        //Create a button
+                        const buttonCode = document.createElement('button');
+                        buttonCode.classList.add('buttons');
+                        buttonCode.textContent = "Box mieten";
 
-                    //Container for button, not sure why this exists...
-                    const boxMieten = document.createElement('div');
-                    //Create a button
-                    const buttonCode = document.createElement('button');
-                    buttonCode.classList.add('buttons');
-                    buttonCode.textContent = "Box mieten";
+                        //Add a Click-Listener to the button
+                        buttonCode.addEventListener('click', function(){
+                            const id = intermediateKey;
 
-                    //Add a Click-Listener to the button
-                    buttonCode.addEventListener('click', function(){
-                        const id = intermediateKey;
+                            console.log(id)
+                            //Send user id and location id to server
+                            fetch('http://127.0.0.1:3000/rentabox',{
+                                method:'PUT',
+                                body: JSON.stringify({'location':id}),
+                                headers: {
+                                    'Content-Type':'application/json'
+                                }
+                            }).then(res=>{return res.json()})
+                            .then(myJson =>{
+                                //Todo; Mit HTTP Statuscodes arbeiten, Server gibt 200 wenn box erfolgreich gemietet wurde, 500 sonst
+                                if(myJson.success){
+                                    alert('Box gemietet');
+                                } else{
+                                    alert('Satz mit X');
+                                }
+                                //Eine Möglichkeit die Daten zu aktualisieren: 
+                                // container.innerHTML = ''
+                                // getBoxes();
 
-                        console.log(id)
-                        //Send user id and location id to server
-                        fetch('http://127.0.0.1:3000/rentabox',{
-                            method:'PUT',
-                            body: JSON.stringify({'location':id}),
-                            headers: {
-                                'Content-Type':'application/json'
-                            }
-                        }).then(res=>{return res.json()})
-                        .then(myJson =>{
-                            //Todo; Mit HTTP Statuscodes arbeiten, Server gibt 200 wenn box erfolgreich gemietet wurde, 500 sonst
-                            if(myJson.success){
-                                alert('Box gemietet');
-                            } else{
-                                alert('Satz mit X');
-                            }
-                            //Eine Möglichkeit die Daten zu aktualisieren: 
-                            // container.innerHTML = ''
-                            // getBoxes();
+                                //Eine andere Möglichkeit die Daten zu aktualisieren
+                                location.reload(true);
 
-                            //Eine andere Möglichkeit die Daten zu aktualisieren
-                            location.reload(true);
-
-                        }).catch(function(error){alert(error)})
-                        //server adds user id to box id and returns success
-                    });
-                    //At button to button-container
-                    boxMieten.appendChild(buttonCode);
-                    //Add infos to boxContainer
-                    boxContainer.appendChild(standort);
-                    boxContainer.appendChild(boxesleft);
-                    boxContainer.appendChild(boxMieten);
-                    //Add box to the main container
-                    container.appendChild(boxContainer);
+                            }).catch(function(error){alert(error)})
+                            //server adds user id to box id and returns success
+                        });
+                        //At button to button-container
+                        boxMieten.appendChild(buttonCode);
+                        //Add infos to boxContainer
+                        boxContainer.appendChild(standort);
+                        boxContainer.appendChild(boxesleft);
+                        boxContainer.appendChild(boxMieten);
+                        //Add box to the main container
+                        container.appendChild(boxContainer);
+                    }
                 }
             })
+            
         }
 
         window.onload = getBoxes;
