@@ -87,9 +87,9 @@ app.post('/register',function(req,res){
         result.then(x=>{
             let id = x.insertedId.valueOf().toString();
             //Session registrieren
-            dbo.collection(MONGOSESSION).insertOne({sessionId:id});
+            dbo.collection(MONGOSESSION).insertOne({session_id:id});
 
-            res.setHeader('Set-cookie', 'sessionId='+id);
+            res.setHeader('Set-Cookie', ['sessionId='+id]);
             res.setHeader('Content-Type','text/html');
             res.statusCode=200;
             res.render('pages/boxenHome')
@@ -249,10 +249,12 @@ app.listen(PORT, function(){
 });
 
 function validateSessionCookie(req,res,callback){
+    console.log(typeof req.cookies.sessionId)
     const sessionId = req.cookies.sessionId
-    console.log(sessionId)
+    console.log('validate '+sessionId)
     MongoClient.connect(MONGOCONNECT, function(err,db){
         if(err) throw err;
+        //findet keine treffer wenn man sich registriert und weitergeleitet wird
         db.db(MONGODB).collection(MONGOSESSION).find({session_id:sessionId}).toArray(function(err,doc){
             if(doc.length == 0){
                 //error
