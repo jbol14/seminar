@@ -80,12 +80,25 @@ app.get('/rent',function(req,res){
 //register
 app.post('/register',function(req,res){
     //console.log(req)
+    let id;
     MongoClient.connect(MONGOCONNECT,function(err, db){
         const dbo = db.db(MONGODB);
-        dbo.collection(MONGOUSERS).insertOne({email: req.body.email,password: req.body.password1});
+        const result = dbo.collection(MONGOUSERS).insertOne({email: req.body.email,password: req.body.password1});
+        result.then(x=>{
+            let id = x.insertedId.valueOf().toString();
+            //Session registrieren
+            dbo.collection(MONGOSESSION).insertOne({sessionId:id});
+
+            res.setHeader('Set-cookie', 'sessionId='+id);
+            res.setHeader('Content-Type','text/html');
+            res.statusCode=200;
+            res.render('pages/boxenHome')
+        });
     })
-    res.writeHead(200,{"Content-Type":"text/plain"})
-    res.end('Stuff happened')
+    //Cookie mit SessionId erstellen,
+    // console.log(id);
+    // res.writeHead(200,{"Content-Type":"text/plain"})
+    // res.end('Stuff happened')
 });
 
 //get users boxes, change to get when client supports get
