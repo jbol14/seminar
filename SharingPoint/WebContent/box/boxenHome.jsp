@@ -17,7 +17,7 @@
 		<div class="toggle-btn" onclick="toggleSidebar()">
 			<img src="images/avatar.png" class= "avatar">
 		</div>
-		<a href="/index.html" class="logOut"> Ausloggen</a>
+		<a href="logout" class="logOut"> Ausloggen</a>
 		<!--TODO: TatsÃ¤chlich ausloggen, also session zerstÃ¶ren etc-->
 		<a href="/SharingPoint/changeKey" class="logOut"> Code ändern</a>
 	</div>
@@ -38,7 +38,6 @@
 		</div>
 	</form>
 	<div>
-	Absolute Path is:<%= getServletContext().getRealPath("/") %>
 	</div>
 	<div class="boxliste">
 		<table class="boxlist">
