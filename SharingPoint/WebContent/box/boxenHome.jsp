@@ -5,9 +5,8 @@
 <head>
 	<title> CLZ Boxen Übersicht</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylebox.css">
-</head>
-<body>
-	<div class="background">
+    
+    <div class="background">
 			<img src="images/Clausthal-Zellerfeld.jpg" class="background">
 	</div>
 
@@ -17,19 +16,17 @@
 		<div class="toggle-btn" onclick="toggleSidebar()">
 			<img src="images/avatar.png" class= "avatar">
 		</div>
+		
 		<a href="logout" class="logOut"> Ausloggen</a>
-		<!--TODO: TatsÃ¤chlich ausloggen, also session zerstÃ¶ren etc-->
-		<a href="/SharingPoint/changeKey" class="logOut"> Code ändern</a>
+			
+		<button onClick="location.href='/SharingPoint/changePin'" id="codeGen" > Code ändern</button>
 	</div>
 	
-	<div id="codeModal" class="codeModal">
-
-		<div class="codeModal-content">
-			<span class="close">&times;</span>
-			<p> Hier passieren später magische Dinge....</p>
-		</div>
-
-	</div>
+	
+</head>
+<body>
+	
+	
 
 	<!--Use Button instead of Form-->
 	<form action="http://127.0.0.1:8080/SharingPoint/rent">
@@ -46,17 +43,22 @@
 				<th>Standort</th>
 				<th>Nummer</th>
 				<th>Gemietet bis</th>
+				<th>GastKey </th>
 			</tr>
 			</thead>
+			 
 			<tbody id="table" class="tablec">
 				<c:forEach var="box" items ="${requestScope.UserBoxList }">
 					<tr>
 						<td>${box[0]}</td>
 						<td>${box[1]}</td>
 						<td>${box[2]}</td>
+						<td> 	<form method="POST" action="http://localhost:8080/SharingPoint/"?>	
+  								<input type="submit" value="Anzeigen?" class="tableBtn"/>
+								</form> </td>
 					</tr>
 				</c:forEach>
-			</tbody>
+			</tbody> 
 		</table>
 	</div>
 <script>

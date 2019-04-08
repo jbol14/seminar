@@ -19,28 +19,56 @@
 		</div>
 		<a href="index.html" class="logOut"> Ausloggen</a>
 		<!--TODO: TatsÃ¤chlich ausloggen, also session zerstÃ¶ren etc-->
-		<button id="codeGen"> Code ändern</button>
+		<button onClick="location.href='/SharingPoint/changePin'" id="codeGen"> Code ändern</button>
 	</div>
 	
-	<div id="codeModal" class="codeModal">
-
-		<div class="codeModal-content">
-			<span class="close">&times;</span>
-			<p> Hier passieren später magische Dinge....</p>
-		</div>
-
-	</div>
 </head>
 <body>
 	<div class="boxliste" id="boxlist">
 		<div class="headl"> <h2> Eine Box auswählen</h2></div>
+    <!-- 
     <div class="main-container">
+   		<table class="boxlist">
+			<thead>
+				<tr id="header"> 
+					<th>Standort</th>
+					<th>Verfügbar</th>
+					<th>Mieten</th>
+				</tr>
+			</thead>
+   
+   
     <c:forEach var="box" items ="${requestScope.FreeBoxList }">
-					<tr>
-						<td>${box[0]} <br> ${box[1]} <br> ${box[2]} </td>
-					</tr>
+					
+					--EINTRAGEN--
+					
 	</c:forEach>
+    </div>	 
+    
+    -->
+    
+    	<!-- Hardgecoded -->
+    <div class="main-container">
+   		 <table class="boxlist">
+			<thead>
+				<tr id="header"> 
+					<th>Standort</th>
+					<th>Verfügbar</th>
+					<th>Mieten</th>
+				</tr>
+			</thead>
+		<tbody id="table" class="tablec">
+		<c:forEach var="box" items ="${requestScope.FreeBoxList }">
+			<tr>
+				<td>${box[0]}</td>
+				<td>${box[1]}</td>
+				<td>${box[2]}</td>	
+			</tr>
+		</c:forEach>
+		</tbody>
     </div>
+    
+    
     <script>
         function toggleSidebar(){
 			document.getElementById("sidenav").classList.toggle('active');

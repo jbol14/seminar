@@ -1,7 +1,9 @@
 package content;
 
 import java.util.Date;
-
+/**
+ * Digital representation of one RaspberryPi box
+ */
 public class Box {
 
 	private int id;
@@ -23,6 +25,7 @@ public class Box {
 	
 	
 	// Getter and Setter
+	
 	public int getId() {
 		return id;
 	}

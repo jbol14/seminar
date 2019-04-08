@@ -9,23 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Logout
+ * Servlet Logout handels the logout of the user
  */
 @WebServlet("/logout")
 public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public Logout() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//Deletes Session which logs user out
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 		    session.invalidate();

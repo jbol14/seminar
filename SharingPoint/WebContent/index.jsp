@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -15,25 +17,19 @@
 			<h2> beim SharingPoint Clausthal</h2>
 		</div>
 
-		<div id="codeModal" class="codeModal">
-			<div class="codeModal-content">
-				<span class="close">&times;</span>
-				<p> Hier könnte man dann die Email Adresse eingeben und absenden</p>
-			</div>
-		</div>
-
 	<div class="loginbox" id="sign-in">	
 		<form method="POST" action="http://localhost:8080/SharingPoint/user">	
 		
 		<img src="images/avatar.png" class="avatar">
 			<!-- TODO Submit soll an server /user get senden -->
 			<h3>Hier einloggen</h3>
+				<font color="red"> <h5> ${empty wrongMail ? "" : wrongMail} </h5></font>
 				<label for="mail"><p>Email</p></label>
 				<input type="text" name="email" placeholder="Email eintragen" required>
 				<label for="psw"><p>Passwort</p></label>
 				<input type="password" name="password" placeholder="Passwort eintragen" required>
 				<input type="submit" name="signin" value="Login">
-				<a id="requestPW"> Passwort vergessen?</a><br>
+			<!--<a id="requestPW"> Passwort vergessen?</a><br> -->
 				<a onclick="toggle(state)"> Haben sie keinen Account?</a>
 		</form>
 	</div>
@@ -44,32 +40,24 @@
 				<!-- TODO: Submit soll an server /user post senden-->
 				<h3>Hier registrieren</h3>
 					<p>Email</p>
-					<input type="text" name="email" placeholder="Email eintragen">
+					<input type="text" name="email" placeholder="Email eintragen" required>
+					<font color="red"> <h5> ${empty mailError ? "" : mailError} </h5></font>
 					<p>Passwort</p>
-					<input type="password" name="password" placeholder="Passwort eintragen">
-					<p>Passwort bestätigen</p>
-					<input type="password" name="passwordCheck" placeholder="Passwort bestätigen">
+					<input type="password" name="password" placeholder="Passwort eintragen" required>
+					<font color="red"> <h5> ${empty pwError ? "" : pwError} </h5></font>
+					<p>Passwort bestÃ¤tigen</p>
+					<input type="password" name="passwordCheck" placeholder="Passwort bestÃ¤tigen" required>
+					<font color="red"> <h5> ${empty pwCheckError ? "" : pwCheckError} </h5></font>
+					<p>Allgemeiner Box Pin</p>
+					<input type="number" name="boxPin" placeholder="Box Pin eintragen" required min="0" maxlength="10">
 					<input type="submit" name="register" value="Registrieren">
+					<font color="red"> <h5> ${empty pinError ? "" : pinError} </h5></font>
+					
 					<a onclick="toggle(state)"> Haben sie bereits einen Account?</a>
 		</form>
 	</div>
 	<script>
-		//Modal code
-		var modal = document.getElementById('codeModal');
-		var btn = document.getElementById('requestPW');
-		var span = document.getElementsByClassName("close")[0];
 
-		btn.onclick = function(){
-			modal.style.display = "block";
-		}
-		span.onclick = function(){
-			modal.style.display = "none";
-		}
-		window.onclick = function(){
-			if (event.target == modal){
-				modal.style.display = "none";
-			}
-		}
 		
 		//TODO: Add state object to Session
 		let state = {

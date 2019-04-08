@@ -15,8 +15,6 @@
 	font-size: 20px;
 
 }
-
-/*
 .account{
 	width: 80px;
 	height: 80px;
@@ -25,7 +23,7 @@
 	position: absolute;
 	background-image: url(avatar.png);
 	background	
-}*/
+}
 .newBox{
 	position: absolute;
 	top: 20%;
@@ -91,10 +89,26 @@ tr{
 	text-align: center;
 }
 td{
-	font-size: 15px;
+	font-size: 25px;
 	height: 50px;
 	border: 5px solid black;
 }
+.tableBtn{
+	border: none;
+	outline: none;
+	height: 40px;
+	background: #fb2525;
+	color: #fff;
+	font-size: 18px;
+	border-radius: 20px;
+	text-align: center;
+}
+.tableBtn:hover{
+	cursor: pointer;
+	background: #ffc107;
+	color: #000;
+}
+
 .accountimg{
 	height: 80px;
 	width: 80px;

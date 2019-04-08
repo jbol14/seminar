@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +14,7 @@ import content.User;
 import controller.UserController;
 
 /**
- * Servlet implementation class UserRegister
+ * Servlet UserRegister which handles the registration. Redirects to an error page if password are incorrect or email is already in use
  */
 @WebServlet("/register")
 public class UserRegister extends HttpServlet {
@@ -23,7 +22,6 @@ public class UserRegister extends HttpServlet {
        
     public UserRegister() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 
@@ -32,7 +30,8 @@ public class UserRegister extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String checkPassword = request.getParameter("passwordCheck");
-		
+		String pin = request.getParameter("boxPin");
+		//Checks if both passwords are the same, if not redirect to error page
 		if(!password.equals(checkPassword)) {
 			PrintWriter writer = response.getWriter();
 			writer.append("<!DOCTYPE html>\r\n")
@@ -50,7 +49,8 @@ public class UserRegister extends HttpServlet {
 		}
 		UserController userController = new UserController();
 		
-		boolean check = userController.RegisterUser(email, password);
+		boolean check = userController.RegisterUser(email, password,pin);
+		//If a user with that Email is already in the system user gets an error
 		if(!check) {
 			PrintWriter writer = response.getWriter();
 			writer.append("<!DOCTYPE html>\r\n")
@@ -69,20 +69,8 @@ public class UserRegister extends HttpServlet {
 		User user = userController.checkUser(email, password);
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("user", user);
-		//create HTML response
-		PrintWriter writer = response.getWriter();
-		writer.append("<!DOCTYPE html>\r\n")
-				  .append("<html>\r\n")
-				  .append("		<head>\r\n")
-				  .append("			<title>Welcome message</title>\r\n")
-				  .append("		</head>\r\n")
-				  .append("		<body>\r\n")
-				  .append("Hallo und Willkommen\r\n")
-				  .append("Email: " + email + "\r\n")
-				  .append("Password" + password + "\r\n")
-				  .append("		</body>\r\n")
-				  .append("</html>\r\n");
+		session.setAttribute("user", user);			//Add user to session
+		response.sendRedirect("/SharingPoint/home");
 	}
 
 }

@@ -14,6 +14,9 @@ import java.util.List;
 import content.Box;
 import content.User;
 
+/**
+ * Implements helper functions for box logic. Gets boxes for Database for the home an rent page. Handles logic behind renting a box
+ */
 public class BoxController {
 	
 	private PostgreSQL postgres;
@@ -51,7 +54,7 @@ public class BoxController {
 		out = boxes.toArray(out);
 		return out;
 	}
-	
+	//Fetches an array of free boxes(leased == false) from the database
 	public Box[] freeBoxes() {
 		List<Box> boxes = new ArrayList<Box>();
 		connectToDatabase();
@@ -77,7 +80,6 @@ public class BoxController {
 			e.printStackTrace();
 		}
 		disconnectDatabase();
-		// To do: Fall keine Boxen gefunden!
 		Box[] out = new Box[boxes.size()];
 		out = boxes.toArray(out);
 		return out;
@@ -88,6 +90,7 @@ public class BoxController {
 		String command = "SELECT * FROM box WHERE area_id='" + areaId +"' AND status_leased ='0'";
 		ResultSet results;
 		int id = 0;
+		Box box;
 		try {
 			results = statement.executeQuery(command);
 			boolean checkBox = results.next();
@@ -103,6 +106,7 @@ public class BoxController {
 			cal.add(Calendar.DATE, 30);
 			Date date = cal.getTime();
 			String leasedUntil = dateFormat.format(date);
+			box = new Box(id, plz, areaId, true, "" , date);
 			command = "UPDATE box SET customer_id ='" + user.getId() +"', "
 					+ "status_leased='1', leased_until ='"+ leasedUntil +"' "
 					+ "WHERE id='" + id +"' AND plz='"+ plz + "' AND area_id='"+areaId+"'";
@@ -114,11 +118,14 @@ public class BoxController {
 		
 		//Sends Data over MQTT
 		String topic = "rentBox/38678/" + areaId;
-		Integer[] boxId = {id};
+		List<Box> boxList = new ArrayList<Box>();
+		boxList.add(box);
+		
 		UserController userController = new UserController();
-		String key = userController.getPrivateKey(user);
-		System.out.println(key);
-		userController.connectToBox(topic,boxId,key);
+		String key = userController.getUserPin(user);
+		
+		MqttController mqttController = new MqttController();
+		mqttController.connectToBox(topic, boxList, key);
 		
 		
 		disconnectDatabase();
