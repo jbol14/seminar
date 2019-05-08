@@ -7,20 +7,30 @@ import java.util.Date;
 public class Box {
 
 	private int id;
-	private int plz;
+	private String plz;
 	private int area_id;
 	private User user;
 	private boolean status_leased;
 	private String location;
 	private Date leased_until;
+	private String[] box_key;
 	
-	public Box(int id, int plz, int area_id,boolean status_leased,String location, Date leased_until) {
+	public Box(int id, String plz, int area_id,boolean status_leased,String location, Date leased_until) {
 		this.id = id;
 		this.plz = plz;
 		this.area_id = area_id;
 		this.status_leased = status_leased;
 		this.location = location;
 		this.leased_until = leased_until;
+	}
+	public Box(int id, String plz, int area_id,boolean status_leased,String location, Date leased_until, String[] box_key) {
+		this.id = id;
+		this.plz = plz;
+		this.area_id = area_id;
+		this.status_leased = status_leased;
+		this.location = location;
+		this.leased_until = leased_until;
+		this.box_key = box_key;
 	}
 	
 	
@@ -29,7 +39,7 @@ public class Box {
 	public int getId() {
 		return id;
 	}
-	public int getPlz() {
+	public String getPlz() {
 		return plz;
 	}
 	public int getAreaId() {
@@ -47,10 +57,13 @@ public class Box {
 	public Date getDate() {
 		return leased_until;
 	}
+	public String[] getBoxKey() {
+		return box_key;
+	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public void setPlz(int plz) {
+	public void setPlz(String plz) {
 		this.plz = plz;
 	}
 	public void setAreaId(int area_id) {
@@ -67,5 +80,8 @@ public class Box {
 	}
 	public void setDate (Date leased_until) {
 		this.leased_until = leased_until;
+	}
+	public void setBoxKey (String[] box_key) {
+		this.box_key = box_key;
 	}
 }

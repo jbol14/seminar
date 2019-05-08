@@ -24,14 +24,14 @@
 	background-image: url(avatar.png);
 	background	
 }
-.newBox{
+.newKey{
 	position: absolute;
 	top: 20%;
-	left: 10%;
+	left: 30%;
 	width: 150px;
 	height: 50px;
 }
-.newBox input[type='submit']{
+.newKey input[type='submit']{
 	border: none;
 	outline: none;
 	height: 40px;
@@ -41,7 +41,7 @@
 	border-radius: 20px;
 	text-align: center;
 }
-.newBox input[type='submit']:hover{
+.newKey input[type='submit']:hover{
 	cursor: pointer;
 	background: #ffc107;
 	color: #000;
@@ -49,10 +49,10 @@
 
 
 .boxliste{
-	width: 80%;
+	width: 40%;
 	height: 70%;
 	top: 25%;
-	left: 10%;
+	left: 30%;
 	background: rgba(105, 105, 105, 0.685);
 	position: absolute;
 	
@@ -70,7 +70,7 @@
 .boxlist{
 	position: absolute;
 
-	width: 98%;
+	width: 95%;
 	margin: 15px;
 
 }

@@ -42,13 +42,19 @@ public class BoxHome extends HttpServlet {
     	//get location, id , leased_Until from user boxes
     	BoxController boxController = new BoxController();
     	Box[] boxes = boxController.UserBoxes(user);
-    	String[][] userBoxList = new String[boxes.length][3];
+    	String[][] userBoxList = new String[boxes.length][4];
     	DateFormat dateFormat =  new SimpleDateFormat("dd-MM-yyyy");
     	for(int i=0; i < boxes.length; i++) {				//fills Data
     		userBoxList[i][0] = boxes[i].getLocation();
     		userBoxList[i][1] = String.valueOf(boxes[i].getId());
     		String date = dateFormat.format(boxes[i].getDate());
     		userBoxList[i][2] = date;
+    		userBoxList[i][3] = "<form method=\"POST\" action=\"http://localhost:8080/SharingPoint/boxKeys\">"
+					+ "<input type=\"hidden\" name=\"areaId\" value=\""+ boxes[i].getAreaId() +"\">"
+					+ "<input type=\"hidden\" name=\"id\" value=\""+ boxes[i].getId() +"\">"
+					+ "<input type=\"hidden\" name=\"plz\" value=\""+ boxes[i].getPlz() +"\">"
+					+ "<input type=\"submit\" value=\"Anzeigen\" class=\"tableBtn\"/>"
+					+ "</form>";
     	}
     	request.setAttribute("UserBoxList", userBoxList);	//Sets attribute for the jsp page. Contains 3 elements per row
     	

@@ -17,8 +17,8 @@
 		<div class="toggle-btn" onclick="toggleSidebar()">
 			<img src="images/avatar.png" class= "avatar">
 		</div>
-		<a href="index.html" class="logOut"> Ausloggen</a>
-		<!--TODO: Tatsächlich ausloggen, also session zerstören etc-->
+		<a href="logout" class="logOut"> Ausloggen</a>
+		
 		<button onClick="location.href='/SharingPoint/changePin'" id="codeGen"> Code �ndern</button>
 	</div>
 	
