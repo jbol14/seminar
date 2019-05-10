@@ -94,6 +94,13 @@ public class BoxController {
 			e.printStackTrace();
 			return false;
 		}
+		//Sends Data over MQTT
+			String topic = "boxKey/38678/" + box.getAreaId();
+				
+				
+			MqttController mqttController = new MqttController();
+			mqttController.connectToSingleBox(topic, box, "inv");
+				
 		disconnectDatabase();
 		return true;
 	}
@@ -153,7 +160,7 @@ public class BoxController {
 			
 			String[] boxPin = genRandomBoxKey(4,3);
 			
-			box = new Box(id, plz, areaId, true, "" , date);
+			box = new Box(id, plz, areaId, true, "" , date, boxPin);
 			command = "UPDATE box SET customer_id ='" + user.getId() +"', "
 					+ "status_leased='1', leased_until ='"+ leasedUntil +"', box_key = '{" + boxPin[0]+","+boxPin[1]
 					+ "," + boxPin[2] + "}'"
@@ -166,14 +173,12 @@ public class BoxController {
 		
 		//Sends Data over MQTT
 		String topic = "rentBox/38678/" + areaId;
-		List<Box> boxList = new ArrayList<Box>();
-		boxList.add(box);
 		
 		UserController userController = new UserController();
 		String key = userController.getUserPin(user);
 		
 		MqttController mqttController = new MqttController();
-		mqttController.connectToBox(topic, boxList, key);
+		mqttController.connectToSingleBox(topic, box, key);
 		
 		
 		disconnectDatabase();

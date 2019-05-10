@@ -14,7 +14,7 @@
 </div>
 
 <div class="Pwbox" id="changePw">
-<form method="POST" action="http://localhost:8080/SharingPoint/setKey">	
+<form method="POST" action="http://localhost:8080/SharingPoint/setPin">	
 	<!-- TODO Submit soll an server /user get senden -->
 	<h3>Change Universal-Key</h3>
 	<font color="red"> <h5> ${empty wrongPass ? "" : wrongPass} </h5></font>

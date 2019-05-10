@@ -26,7 +26,7 @@ public class MqttController {
 	public MqttController() {
 		clientId = UUID.randomUUID().toString();
 	}
-	public void connectToBox(String topic, List<Box> boxList, String key) {
+	public void connectToBoxList(String topic, List<Box> boxList, String key) {
 		DateFormat dateFormat =  new SimpleDateFormat("yyyy-MM-dd");
 		JSONArray ja = new JSONArray();
 		for(int i=0; i<boxList.size();i++) {
@@ -35,12 +35,44 @@ public class MqttController {
 			jo.put("PIN", key);
 			String leasedUntil = dateFormat.format(boxList.get(i).getDate());
 			jo.put("Date", leasedUntil);
+			jo.put("BoxPIN", new JSONArray(boxList.get(i).getBoxKey()));
 			ja.put(jo);
 		}
 		JSONObject mainObj = new JSONObject();
 		mainObj.put("Box",ja);
 			
 		String content = mainObj.toString();
+		try {
+			MqttClient sampleClient = new MqttClient(broker, clientId, new MemoryPersistence());
+			MqttConnectOptions connOpts = new MqttConnectOptions();
+			connOpts.setCleanSession(true);
+			System.out.println("paho-client connecting to broker: " + broker);
+			sampleClient.connect(connOpts);
+			System.out.println("paho-client connected to broker");
+			System.out.println("paho-client publishing message: " + content + "in Topic:" + topic);
+			MqttMessage message = new MqttMessage(content.getBytes());
+			message.setQos(2);
+			message.setRetained(true);
+			sampleClient.publish(topic, message);
+			System.out.println("paho-client message published");
+			sampleClient.disconnect();
+			System.out.println("paho-client disconnected");
+			sampleClient.close();
+		} catch (MqttException me) {
+			me.printStackTrace();
+		}
+	}
+	public void connectToSingleBox(String topic, Box box, String key) {
+		DateFormat dateFormat =  new SimpleDateFormat("yyyy-MM-dd");
+		JSONObject jo = new JSONObject();
+		jo.put("ID", box.getId());
+		jo.put("PIN", key);
+		String leasedUntil = dateFormat.format(box.getDate());
+		jo.put("Date", leasedUntil);
+		jo.put("BoxPIN", new JSONArray(box.getBoxKey()));
+		
+		String content = jo.toString();
+		System.out.println(content);
 		try {
 			MqttClient sampleClient = new MqttClient(broker, clientId, new MemoryPersistence());
 			MqttConnectOptions connOpts = new MqttConnectOptions();

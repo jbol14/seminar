@@ -36,9 +36,9 @@ public class BoxKeyNew extends HttpServlet {
     		request.getRequestDispatcher("/box/SessionTimeout.jsp").forward(request,response);
     		return;
     	}
-    	int areaId = (int) session.getAttribute("areaId");
-    	int id = (int) session.getAttribute("id");
-    	String plz = (String) session.getAttribute("plz");
+    	int areaId = Integer.parseInt(request.getParameter("areaId"));
+    	int id = Integer.parseInt(request.getParameter("id"));
+    	String plz = request.getParameter("plz");
     	
     	
     	//get location, id , leased_Until from user boxes

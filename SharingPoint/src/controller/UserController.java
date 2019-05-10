@@ -129,7 +129,7 @@ public class UserController {
 			String topic = "newCode/38678/"+ usedAreaId.get(i);
 			
 			MqttController mqttController = new MqttController();
-			mqttController.connectToBox(topic, boxList, key);
+			mqttController.connectToBoxList(topic, boxList, key);
 		}	
 		
 		return true;
